@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTaskDto } from '@/modules/task/dto/create-task.dto';
 import { UpdateTaskDto } from '@/modules/task/dto/update-task.dto';
 import { TaskRepository } from '@/modules/task/repositories/task.repositories';
+import { SearchTaskDto } from './dto/search-task.dto';
 
 @Injectable()
 export class TaskService {
@@ -12,6 +13,16 @@ export class TaskService {
 
   findAll(userId: number) {
     return this.taskRepository.findAll({ userId });
+  }
+
+  search(searchTaskDto: SearchTaskDto, userId: number) {
+    const { query } = searchTaskDto;
+
+    if (!query || query.trim() === '') {
+      return this.findAll(userId);
+    }
+
+    return this.taskRepository.search(userId, query);
   }
 
   findOne(id: number) {

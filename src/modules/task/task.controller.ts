@@ -7,12 +7,14 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { JwtAuthGuard } from '@/modules/auth/auth.guard';
 import { CurrentUserId } from '@/modules/user/decorators/user.decorator';
+import { SearchTaskDto } from './dto/search-task.dto';
 
 @Controller('task')
 @UseGuards(JwtAuthGuard)
@@ -25,6 +27,14 @@ export class TaskController {
     @CurrentUserId() userId: number,
   ) {
     return this.taskService.create(createTaskDto, userId);
+  }
+
+  @Get('search')
+  search(
+    @Query() searchTaskDto: SearchTaskDto,
+    @CurrentUserId() userId: number,
+  ) {
+    return this.taskService.search(searchTaskDto, userId);
   }
 
   @Get()
