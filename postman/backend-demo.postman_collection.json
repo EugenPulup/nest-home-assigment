@@ -1,0 +1,1811 @@
+{
+	"info": {
+		"_postman_id": "c9c5f027-7dba-4155-8e66-38268ddb41a8",
+		"name": "FireArt Assigment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45412283",
+		"_collection_link": "https://eugen-9803046.postman.co/workspace/Eugen's-Workspace~6ba52c7d-a96c-42b5-8b33-aeec5a02ae96/collection/45412283-c9c5f027-7dba-4155-8e66-38268ddb41a8?action=share&source=collection_link&creator=45412283"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Sign Up",
+					"item": [
+						{
+							"name": "01 Pos - Valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const resData = pm.response.json();",
+											"",
+											"if (resData.accessToken) {",
+											"  pm.environment.set('accessToken', resData.accessToken);",
+											"} ",
+											"",
+											"const raw = pm.request.body.raw;",
+											"",
+											"const data = JSON.parse(raw);",
+											"",
+											"const email = data.email;",
+											"",
+											"pm.environment.set('user_email', email);",
+											"",
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"username\": \"{{$randomUserName}}\",\n    \"password\": \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/signup",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "02 Neg - Conflict",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 409\", function () {",
+											"  pm.response.to.have.status(409);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{user_email}}\",\n    \"username\": \"Soe3\",\n    \"password\": \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/signup",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "03 Neg - Invalid Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"  pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{user_email}}\",\n    \"password\": \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/signup",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "03 Neg - Invalid Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"  pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{user_email}}\",\n    \"password\": \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/signup",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "01 Pos - Valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{user_email}}\",\n    \"password\": \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/login",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "02 Neg - Invalid Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"some@asdasd.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/login",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "03 Neg - Invalid Creds",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{user_email}}\",\n    \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/login",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reset Request",
+					"item": [
+						{
+							"name": "01 Pos - Valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.environment.set('resetToken', pm.response.text());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{user_email}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/reset/request",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"reset",
+										"request"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "02 Neg - Incorect Email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{$randomEmail}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/reset/request",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"reset",
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reset Confirm",
+					"item": [
+						{
+							"name": "01 Pos - Valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"token\": \"{{resetToken}}\",\n    \"password\": \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/reset/confirm",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"reset",
+										"confirm"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "02 Neg - Invalid Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"token\": \"{{$randomLoremSentence}}\",\n    \"password\": \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/reset/confirm",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"reset",
+										"confirm"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "03 Neg - Invalid Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"token\": \"{{$randomLoremSentence}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/auth/reset/confirm",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"reset",
+										"confirm"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "01 Pos - Valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Response body should have an id\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.id).to.exist;",
+											"    pm.expect(response.id).to.be.a('number');",
+											"});",
+											"",
+											"pm.test(\"Response body should have a name\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.name).to.exist;",
+											"    pm.expect(response.name).to.be.a('string');",
+											"});",
+											"",
+											"pm.test(\"Response body should have a content\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.content).to.exist;",
+											"    pm.expect(response.content).to.be.a('string');",
+											"});",
+											"",
+											"pm.test(\"Response body should have a createdAt\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.createdAt).to.exist;",
+											"    pm.expect(response.createdAt).to.be.a('string');",
+											"});",
+											"",
+											"const response = pm.response.json();",
+											"",
+											"pm.environment.set('taskId', response.id);",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{$randomStreetName}}\",\n    \"content\": \"{{$randomJobDescriptor}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "02 Neg - Invalid Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{$randomStreetName}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "03 Neg - Unauthorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{$randomStreetName}}\",\n    \"content\": \"{{$randomJobDescriptor}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get All",
+					"item": [
+						{
+							"name": "01 Pos - Valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "02 Neg - Unauthorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Search",
+					"item": [
+						{
+							"name": "01 Pos - Valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response body should be array\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.be.a('array');",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/search?query=a",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										"search"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "a"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "02 Neg - Unauthorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/search?query=a",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										"search"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "a"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "02 Neg - Unauthorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/search?query=a",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										"search"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "a"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get By ID",
+					"item": [
+						{
+							"name": "01 Pos - Valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response body should have an id\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.id).to.exist;",
+											"    pm.expect(response.id).to.be.a('number');",
+											"});",
+											"",
+											"pm.test(\"Response body should have a name\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.name).to.exist;",
+											"    pm.expect(response.name).to.be.a('string');",
+											"});",
+											"",
+											"pm.test(\"Response body should have a content\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.content).to.exist;",
+											"    pm.expect(response.content).to.be.a('string');",
+											"});",
+											"",
+											"pm.test(\"Response body should have a createdAt\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.createdAt).to.exist;",
+											"    pm.expect(response.createdAt).to.be.a('string');",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{taskId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "02 Neg - Not Found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "99999"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "03 Neg - Unauthorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{taskId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "04 Neg - Forrbiden",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 403\", function () {",
+											"    pm.response.to.have.status(403);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{secondAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{taskId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "01 Pos - Valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response body should have an id\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.id).to.exist;",
+											"    pm.expect(response.id).to.be.a('number');",
+											"});",
+											"",
+											"pm.test(\"Response body should have a name\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.name).to.exist;",
+											"    pm.expect(response.name).to.be.a('string');",
+											"});",
+											"",
+											"pm.test(\"Response body should have a content\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.content).to.exist;",
+											"    pm.expect(response.content).to.be.a('string');",
+											"});",
+											"",
+											"pm.test(\"Response body should have a createdAt\", function () {",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.createdAt).to.exist;",
+											"    pm.expect(response.createdAt).to.be.a('string');",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{$randomStreetName}}\",\n    \"content\": \"{{$randomJobDescriptor}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{taskId}}",
+											"description": "task identifier"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "02 Neg - Not Found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{$randomStreetName}}\",\n    \"content\": \"{{$randomJobDescriptor}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "99999",
+											"description": "task identifier"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "03 Neg - Unauthorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{$randomStreetName}}\",\n    \"content\": \"{{$randomJobDescriptor}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{taskId}}",
+											"description": "task identifier"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "04 Neg - Forrbiden",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 403\", function () {",
+											"    pm.response.to.have.status(403);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{secondAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{$randomStreetName}}\",\n    \"content\": \"{{$randomJobDescriptor}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{taskId}}",
+											"description": "task identifier"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "05 Neg - Invalid Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{taskId}}",
+											"description": "task identifier"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "01 Pos - Valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{taskId}}",
+											"description": "task identifier"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "02 Neg - Not Found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "99999",
+											"description": "task identifier"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "03 Neg - Unauthorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "99999",
+											"description": "task identifier"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "04 Neg - Forrbiden",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{secondAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{taskId}}",
+											"description": "task identifier"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "05 Neg - Invalid Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}{{base_url}}/task/:id",
+									"host": [
+										"{{protocol}}{{base_url}}"
+									],
+									"path": [
+										"task",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "task identifier"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"const base = pm.collectionVariables.get('base_url');",
+					"const randomEmail = pm.variables.replaceIn('{{$randomEmail}}');",
+					"",
+					"",
+					"await pm.sendRequest(",
+					"  {",
+					"    url: `${base}/auth/signup`,",
+					"    method: 'POST',",
+					"    header: { 'Content-Type': 'application/json' },",
+					"    body: {",
+					"      mode: 'raw',",
+					"      raw: JSON.stringify({",
+					"        email: randomEmail,",
+					"        username: 'someNewUser',",
+					"        password: 'Pa$$1234',",
+					"      }),",
+					"    },",
+					"  },",
+					"  (err, res) => {",
+					"    if (err) {                                    ",
+					"      console.error(err);",
+					"    }",
+					"",
+					"    if (res.code !== 200) {                        ",
+					"      console.warn('Login failed:', res.text());",
+					"    }",
+					"",
+					"    const token = res.json().accessToken;",
+					"",
+					"    pm.environment.set('secondAccessToken', token);             ",
+					"  }",
+					");",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "accessToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "base_url",
+			"value": "localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "protocol",
+			"value": "http://",
+			"type": "string"
+		}
+	]
+}

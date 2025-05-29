@@ -57,6 +57,36 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## API Testing with Postman
+
+This project includes GitHub Actions workflows for automated API testing using Postman and Newman.
+
+### Local Testing
+
+To run Postman tests locally using Newman:
+
+```bash
+# Start the application and database
+docker-compose up -d
+
+# Run Newman (replace with your actual collection path)
+npx newman run your-collection.json
+```
+
+### GitHub Actions Setup
+
+To enable the automated Postman tests in GitHub Actions, add the following secrets to your GitHub repository:
+
+1. `POSTMAN_API_KEY` - Your Postman API key
+2. `POSTMAN_COLLECTION_ID` - The ID of your Postman collection
+3. `POSTMAN_ENVIRONMENT_ID` - The ID of your Postman environment (if applicable)
+
+You can find these values in the Postman app:
+
+- For the API Key: Go to your Postman account settings
+- For Collection ID: View collection details and copy the ID from the URL
+- For Environment ID: View environment details and copy the ID from the URL
+
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
