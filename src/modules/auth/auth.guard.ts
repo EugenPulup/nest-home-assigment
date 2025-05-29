@@ -8,6 +8,7 @@ import { Reflector } from '@nestjs/core';
 
 import { AuthService } from '@/modules/auth/auth.service';
 import { TokenService } from '@/modules/token/token.service';
+import { TokenPayload } from '@/modules/token/types';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -29,7 +30,9 @@ export class JwtAuthGuard implements CanActivate {
       const token =
         this.authService.extractTokenFromBearerHeader(authorization);
 
-      this.tokenService.validate(token);
+      const payload = this.tokenService.validate(token) as TokenPayload;
+
+      request['userId'] = payload.id;
 
       return true;
     } catch {

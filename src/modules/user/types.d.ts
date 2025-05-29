@@ -3,4 +3,7 @@ export interface User {
   email: string;
   username: string;
   password: string;
+  createdAt: Date;
 }
+
+export type CreateUser = Omit<User, 'id' | 'createdAt'>;

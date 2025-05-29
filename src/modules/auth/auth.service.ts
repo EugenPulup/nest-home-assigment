@@ -20,6 +20,7 @@ export class AuthService {
 
   public generateAccessToken(user: User) {
     return this.tokenService.createAccessToken({
+      id: user.id,
       email: user.email,
       username: user.username,
     });

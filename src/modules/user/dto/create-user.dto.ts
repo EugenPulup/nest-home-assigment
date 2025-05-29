@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
-import { User } from '@/modules/user/types';
+import { CreateUser } from '@/modules/user/types';
 
-export class CreateUserDto implements Omit<User, 'id'> {
+export class CreateUserDto implements CreateUser {
   @IsEmail()
   @IsNotEmpty()
   readonly email: string;

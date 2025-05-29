@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { sign, verify } from 'jsonwebtoken';
 
 import { ConfigService } from '@/config';
-import { User } from '@/modules/user/types';
+import { TokenPayload } from './types';
 
 @Injectable()
 export class TokenService {
@@ -27,7 +27,7 @@ export class TokenService {
     ) as Record<string, unknown>;
   }
 
-  public createAccessToken(data: Partial<User>): string {
+  public createAccessToken(data: TokenPayload): string {
     const { tokenSecretKey, tokenExpiresIn } =
       this.configService.getTokenConfig();
 

@@ -1,26 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { CreateTaskDto } from './dto/create-task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateTaskDto } from '@/modules/task/dto/create-task.dto';
+import { UpdateTaskDto } from '@/modules/task/dto/update-task.dto';
+import { TaskRepository } from '@/modules/task/repositories/task.repositories';
 
 @Injectable()
 export class TaskService {
-  create(createTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
+  constructor(private readonly taskRepository: TaskRepository) {}
+  create(createTaskDto: CreateTaskDto, userId: number) {
+    return this.taskRepository.create({ ...createTaskDto, userId });
   }
 
-  findAll() {
-    return `This action returns all task`;
+  findAll(userId: number) {
+    return this.taskRepository.findAll({ userId });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} task`;
+    return this.taskRepository.findById(id);
   }
 
   update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+    return this.taskRepository.update(id, updateTaskDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async remove(id: number, userId: number) {
+    const deletedRows = await this.taskRepository.deleteWhere({ id, userId });
+
+    if (!deletedRows) {
+      throw new NotFoundException(
+        'Task not found or does not belong to the user',
+      );
+    }
+
+    return true;
   }
 }
