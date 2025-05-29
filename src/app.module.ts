@@ -6,6 +6,7 @@ import { UserModule } from '@/modules/user/user.module';
 import { AuthModule } from '@/modules/auth/auth.module';
 import { SharedModule } from '@/shared.module';
 import { TokenModule } from '@/modules/token/token.module';
+import { HealthModule } from '@/modules/health/health.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { TokenModule } from '@/modules/token/token.module';
       cache: true,
       envFilePath: ['.env'],
     }),
+    HealthModule,
     SharedModule,
     TokenModule,
     AuthModule,
