@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+
+# Dependencies
+node_modules
+npm-debug.log
+
+# Tests
+coverage
+.nyc_output
+test
+
+# Build
+dist
+build
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# IDE
+.idea
+.vscode
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
