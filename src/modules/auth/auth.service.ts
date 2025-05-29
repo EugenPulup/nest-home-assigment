@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  ConflictException,
+  UnauthorizedException,
+} from '@nestjs/common';
 
 import { TokenService } from '@/modules/token/services/token.service';
 import { ResetTokenService } from '@/modules/token/services/reset-token.service';
@@ -45,7 +50,7 @@ export class AuthService {
     const existingUser = await this.userRepository.findByEmail(dto.email);
 
     if (existingUser) {
-      throw new BadRequestException('User with this email already exists');
+      throw new ConflictException('User with this email already exists');
     }
 
     const user = await this.userService.createUser({
@@ -76,7 +81,7 @@ export class AuthService {
     );
 
     if (!isPasswordValid) {
-      throw new BadRequestException('Invalid password');
+      throw new UnauthorizedException('Invalid Credentials');
     }
 
     return this.getAuthResponse(user);

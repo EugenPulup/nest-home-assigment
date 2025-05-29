@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { AuthService } from '@/modules/auth/auth.service';
 import { SignUpDto } from '@/modules/auth/dto/sign-up.dto';
 import { LoginDto } from '@/modules/auth/dto/login.dto';
@@ -16,17 +16,20 @@ export class AuthController {
   }
 
   @Post('login')
+  @HttpCode(200)
   async login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
 
   @Throttle({ default: { limit: 3, ttl: 60000 } })
   @Post('reset/request')
+  @HttpCode(200)
   request(@Body() dto: PasswordResetRequestDto) {
     return this.authService.requestPasswordReset(dto);
   }
 
   @Post('reset/confirm')
+  @HttpCode(200)
   confirm(@Body() dto: PasswordResetDto) {
     return this.authService.confirmPasswordReset(dto);
   }

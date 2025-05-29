@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   ForbiddenException,
+  BadRequestException,
 } from '@nestjs/common';
 import { CreateTaskDto } from '@/modules/task/dto/create-task.dto';
 import { UpdateTaskDto } from '@/modules/task/dto/update-task.dto';
@@ -60,6 +61,12 @@ export class TaskService {
     if (task.userId !== userId) {
       throw new ForbiddenException(
         'You do not have permission to access this task',
+      );
+    }
+
+    if (!updateTaskDto) {
+      throw new BadRequestException(
+        'At least one of content or name must be provided for update',
       );
     }
 
