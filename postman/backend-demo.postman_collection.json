@@ -259,7 +259,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\": \"some.new33@domain.com\",\n    \"password\": \"12345\"\n}",
+									"raw": "{\n    \"email\": \"{{user_email}}\",\n    \"password\": \"12345\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1744,7 +1744,7 @@
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
-					"const base = pm.environment.get('base_url');",
+					"const base = pm.collectionVariables.get('base_url');",
 					"const randomEmail = pm.variables.replaceIn('{{$randomEmail}}');",
 					"",
 					"",
@@ -1795,6 +1795,16 @@
 		{
 			"key": "accessToken",
 			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "base_url",
+			"value": "localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "protocol",
+			"value": "http://",
 			"type": "string"
 		}
 	]
