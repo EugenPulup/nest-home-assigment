@@ -32,8 +32,8 @@ export class TaskService {
     return data.map((task) => new TaskEntity(task));
   }
 
-  async findOne(id: number) {
-    const data = await this.taskRepository.findById(id);
+  async findOne(id: number, userId: number) {
+    const data = await this.taskRepository.findOne({ id, userId });
 
     if (!data) throw new NotFoundException('User not found');
 

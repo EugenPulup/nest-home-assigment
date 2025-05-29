@@ -42,6 +42,18 @@ export abstract class BaseRepository<T extends Model> {
     return (await this.db.query<T>(sql, args)).rows;
   }
 
+  async findOne(where: Partial<T>): Promise<T | null> {
+    const keys = Object.keys(where) as (keyof T)[];
+    if (keys.length === 0) return null;
+    const clauses = keys
+      .map((k, i) => `"${String(k)}" = $${i + 1}`)
+      .join(' AND ');
+    const args = keys.map((k) => (where as unknown)[k]);
+    const sql = `SELECT * FROM ${this.table} WHERE ${clauses} LIMIT 1`;
+    const result = await this.db.query<T>(sql, args);
+    return result.rows[0] ?? null;
+  }
+
   async update(id: number, patch: Partial<Omit<T, 'id'>>): Promise<T> {
     const keys = Object.keys(patch) as (keyof T)[];
 

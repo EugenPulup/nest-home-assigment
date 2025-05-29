@@ -47,8 +47,11 @@ export class TaskController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.taskService.findOne(id);
+  findOne(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUserId() userId: number,
+  ) {
+    return this.taskService.findOne(id, userId);
   }
 
   @Patch(':id')
