@@ -5,9 +5,6 @@ const TokenConfig = registerAs('token', () => ({
   tokenExpiresIn: Number(process.env.TOKEN_EXPIRES_IN),
 }));
 
-export type ITokenConfig = {
-  tokenSecretKey: string;
-  tokenExpiresIn: number;
-};
+export type ITokenConfig = Awaited<ReturnType<typeof TokenConfig>>;
 
 export default TokenConfig;
