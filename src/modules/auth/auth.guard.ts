@@ -7,7 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 
 import { AuthService } from '@/modules/auth/auth.service';
-import { TokenService } from '@/modules/token/token.service';
+import { TokenService } from '@/modules/token/services/token.service';
 import { TokenPayload } from '@/modules/token/types';
 
 @Injectable()

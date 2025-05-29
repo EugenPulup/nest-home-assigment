@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { sign, verify } from 'jsonwebtoken';
 
 import { ConfigService } from '@/config';
-import { TokenPayload } from './types';
+import { TokenPayload } from '@/modules/token/types';
 
 @Injectable()
 export class TokenService {

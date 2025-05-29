@@ -4,3 +4,7 @@ export interface TokenPayload extends JwtPayload {
   email: string;
   username: string;
 }
+
+export interface ResetTokenPayload extends JwtPayload {
+  email: string;
+}
