@@ -1,21 +1,31 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from '@/modules/user/dto/create-user.dto';
-import { User } from '@/modules/user/types';
 import { UserRepository } from '@/modules/user/repositories/user.repositories';
+import { UserEntity } from '@/modules/user/entities/user.entity';
 
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  public async createUser(payload: CreateUserDto): Promise<User> {
-    return this.userRepository.create(payload);
+  public async createUser(payload: CreateUserDto): Promise<UserEntity> {
+    const data = await this.userRepository.create(payload);
+
+    return new UserEntity(data);
   }
 
-  public async findUserById(id: number): Promise<User | null> {
-    return this.userRepository.findById(id);
+  public async findUserById(id: number): Promise<UserEntity> {
+    const data = await this.userRepository.findById(id);
+
+    if (!data) throw new NotFoundException('User not found');
+
+    return new UserEntity(data);
   }
 
-  public async findUserByEmail(email: string): Promise<User | null> {
-    return this.userRepository.findByEmail(email);
+  public async findUserByEmail(email: string): Promise<UserEntity> {
+    const data = await this.userRepository.findByEmail(email);
+
+    if (!data) throw new NotFoundException('User not found');
+
+    return new UserEntity(data);
   }
 }

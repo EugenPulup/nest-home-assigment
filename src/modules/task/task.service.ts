@@ -2,35 +2,48 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTaskDto } from '@/modules/task/dto/create-task.dto';
 import { UpdateTaskDto } from '@/modules/task/dto/update-task.dto';
 import { TaskRepository } from '@/modules/task/repositories/task.repositories';
+import { TaskEntity } from '@/modules/task/entities/task.entity';
 import { SearchTaskDto } from './dto/search-task.dto';
 
 @Injectable()
 export class TaskService {
   constructor(private readonly taskRepository: TaskRepository) {}
-  create(createTaskDto: CreateTaskDto, userId: number) {
-    return this.taskRepository.create({ ...createTaskDto, userId });
+  async create(createTaskDto: CreateTaskDto, userId: number) {
+    const data = await this.taskRepository.create({ ...createTaskDto, userId });
+
+    return new TaskEntity(data);
   }
 
-  findAll(userId: number) {
-    return this.taskRepository.findAll({ userId });
+  async findAll(userId: number) {
+    const data = await this.taskRepository.findAll({ userId });
+
+    return data.map((task) => new TaskEntity(task));
   }
 
-  search(searchTaskDto: SearchTaskDto, userId: number) {
+  async search(searchTaskDto: SearchTaskDto, userId: number) {
     const { query } = searchTaskDto;
 
     if (!query || query.trim() === '') {
       return this.findAll(userId);
     }
 
-    return this.taskRepository.search(userId, query);
+    const data = await this.taskRepository.search(userId, query);
+
+    return data.map((task) => new TaskEntity(task));
   }
 
-  findOne(id: number) {
-    return this.taskRepository.findById(id);
+  async findOne(id: number) {
+    const data = await this.taskRepository.findById(id);
+
+    if (!data) throw new NotFoundException('User not found');
+
+    return new TaskEntity(data);
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return this.taskRepository.update(id, updateTaskDto);
+  async update(id: number, updateTaskDto: UpdateTaskDto) {
+    const data = await this.taskRepository.update(id, updateTaskDto);
+
+    return new TaskEntity(data);
   }
 
   async remove(id: number, userId: number) {

@@ -8,6 +8,8 @@ import {
   Delete,
   UseGuards,
   Query,
+  ClassSerializerInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -18,6 +20,7 @@ import { SearchTaskDto } from './dto/search-task.dto';
 
 @Controller('task')
 @UseGuards(JwtAuthGuard)
+@UseInterceptors(ClassSerializerInterceptor)
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 

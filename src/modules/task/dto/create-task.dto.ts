@@ -1,7 +1,6 @@
-import { CreateTask } from '@/modules/task/types';
 import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-export class CreateTaskDto implements CreateTask {
+export class CreateTaskDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(5)

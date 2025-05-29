@@ -1,7 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
-import { CreateUser } from '@/modules/user/types';
 
-export class CreateUserDto implements CreateUser {
+export class CreateUserDto {
   @IsEmail()
   @IsNotEmpty()
   readonly email: string;

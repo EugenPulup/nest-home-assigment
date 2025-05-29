@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { TokenService } from '@/modules/token/token.service';
-import { User } from '@/modules/user/types';
+import { UserEntity } from '@/modules/user/entities/user.entity';
 import { UserService } from '@/modules/user/user.service';
 import { UserRepository } from '@/modules/user/repositories/user.repositories';
 import { SignUpDto } from '@/modules/auth/dto/sign-up.dto';
@@ -18,7 +18,7 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  public generateAccessToken(user: User) {
+  public generateAccessToken(user: UserEntity) {
     return this.tokenService.createAccessToken({
       id: user.id,
       email: user.email,
@@ -26,7 +26,7 @@ export class AuthService {
     });
   }
 
-  public getAuthResponse(user: User) {
+  public getAuthResponse(user: UserEntity) {
     const accessToken = this.generateAccessToken(user);
 
     return {

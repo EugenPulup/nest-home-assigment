@@ -1,15 +1,15 @@
 import { Exclude } from 'class-transformer';
 
-export class TaskEntity {
+export class UserEntity {
   id: number;
-  name: string;
-  content: string;
+  email: string;
+  username: string;
   createdAt: Date;
 
   @Exclude()
-  userId: number;
+  password: string;
 
-  constructor(partial: Partial<TaskEntity>) {
+  constructor(partial: Partial<UserEntity>) {
     Object.assign(this, partial);
   }
 }
