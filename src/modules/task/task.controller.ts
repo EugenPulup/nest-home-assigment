@@ -10,6 +10,7 @@ import {
   Query,
   ClassSerializerInterceptor,
   UseInterceptors,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -46,17 +47,23 @@ export class TaskController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.taskService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.taskService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.taskService.update(+id, updateTaskDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ) {
+    return this.taskService.update(id, updateTaskDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string, @CurrentUserId() userId: number) {
-    return this.taskService.remove(+id, userId);
+  remove(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUserId() userId: number,
+  ) {
+    return this.taskService.remove(id, userId);
   }
 }
