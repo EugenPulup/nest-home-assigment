@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { CreateTaskDto } from '@/modules/task/dto/create-task.dto';
 import { UpdateTaskDto } from '@/modules/task/dto/update-task.dto';
 import { TaskRepository } from '@/modules/task/repositories/task.repositories';
@@ -33,20 +37,50 @@ export class TaskService {
   }
 
   async findOne(id: number, userId: number) {
-    const data = await this.taskRepository.findOne({ id, userId });
+    const data = await this.taskRepository.findById(id);
 
-    if (!data) throw new NotFoundException('User not found');
+    if (!data) throw new NotFoundException('Task not found');
+
+    if (data.userId !== userId) {
+      throw new ForbiddenException(
+        'You do not have permission to access this task',
+      );
+    }
 
     return new TaskEntity(data);
   }
 
-  async update(id: number, updateTaskDto: UpdateTaskDto) {
+  async update(id: number, userId: number, updateTaskDto: UpdateTaskDto) {
+    const task = await this.taskRepository.findById(id);
+
+    if (!task) {
+      throw new NotFoundException('Task not found');
+    }
+
+    if (task.userId !== userId) {
+      throw new ForbiddenException(
+        'You do not have permission to access this task',
+      );
+    }
+
     const data = await this.taskRepository.update(id, updateTaskDto);
 
     return new TaskEntity(data);
   }
 
   async remove(id: number, userId: number) {
+    const task = await this.taskRepository.findById(id);
+
+    if (!task) {
+      throw new NotFoundException('Task not found');
+    }
+
+    if (task.userId !== userId) {
+      throw new ForbiddenException(
+        'You do not have permission to access this task',
+      );
+    }
+
     const deletedRows = await this.taskRepository.deleteWhere({ id, userId });
 
     if (!deletedRows) {

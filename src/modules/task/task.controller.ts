@@ -58,8 +58,9 @@ export class TaskController {
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateTaskDto: UpdateTaskDto,
+    @CurrentUserId() userId: number,
   ) {
-    return this.taskService.update(id, updateTaskDto);
+    return this.taskService.update(id, userId, updateTaskDto);
   }
 
   @Delete(':id')
