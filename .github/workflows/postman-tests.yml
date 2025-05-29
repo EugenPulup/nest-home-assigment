@@ -1,0 +1,43 @@
+name: Postman API Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  postman_tests:
+    name: Run Postman API Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Newman and reporters
+        run: |
+          npm install -g newman newman-reporter-htmlextra newman-reporter-junit
+
+      - name: Set up Docker Compose
+        run: |
+          docker-compose up -d
+          # Wait for containers to be ready
+          echo "Waiting for services to start..."
+          sleep 30
+
+      - run: npm install -g newman
+      - run: |
+          newman run postman/backend-demo.postman_collection.json \
+            --env-var baseUrl=http://localhost:3000
+
+      # 6 ▸ always clean-up
+      - name: Compose down
+        if: always()
+        run: docker compose down -v
